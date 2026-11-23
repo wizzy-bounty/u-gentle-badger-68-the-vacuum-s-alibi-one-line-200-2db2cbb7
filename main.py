@@ -14,10 +14,18 @@ LINE = (
 )
 
 
-def main() -> None:
+def write_entry(text: str) -> None:
+    if not 1 <= len(text) <= 200:
+        raise ValueError(f"entry must be 1-200 chars, got {len(text)}")
+    if "\n" in text or "\r" in text:
+        raise ValueError("entry must be a single line")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(LINE + "\n")
+        f.write(text + "\n")
+
+
+def main() -> None:
+    write_entry(LINE)
 
 
 if __name__ == "__main__":
